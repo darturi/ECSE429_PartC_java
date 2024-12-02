@@ -1,0 +1,8 @@
+Label,Average_CPU_Usage_1,Average_CPU_Usage_5,Average_CPU_Usage_10,Average_CPU_Usage_25,Average_CPU_Usage_50,Average_CPU_Usage_100,Average_CPU_Usage_200
+Delete,11.89,7.62,5.74,10.18,9.8,13.485,22.13
+Update_Put_TitleOnly,8.16,6.16,6.58,7.65,8.82,15.66,14.57
+Update_Put_AllFields,6.23,8.31,5.38,15.39,10.17,7.67,14.27
+Update_Post_TitleOnly,6.93,6.8,17.32,5.69,9.4,12.12,16.57
+Create_OnlyTitle,41.8,7.77,8.11,7.29,11.58,19.5,18.88
+Update_Post_AllFields,5.88,5.97,6.26,5.88,5.6,8.95,10.48
+Create_AllFields,8.6,6.13,9.38,10.49,6.43,9.42,13.965
