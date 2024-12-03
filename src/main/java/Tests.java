@@ -2,28 +2,16 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.http.Headers;
 import io.restassured.path.json.JsonPath;
-import io.restassured.path.xml.XmlPath;
 import io.restassured.response.Response;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-
-import javax.xml.xpath.XPath;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.given;
@@ -84,8 +72,6 @@ public class Tests {
                 contentType(ContentType.JSON).
                 and().extract().response();
     }
-
-    // CORRECTNESS VERIFICATION
 
     // ENVIRONMENT SETUP
     private static void setup_n_todos(int n){
@@ -210,8 +196,6 @@ public class Tests {
     }
 
 
-    // TODO: n tests
-    //      todo: data collection for dynamic analysis
     private static String[] create_n_todos_test(int n, boolean allFields){
         // Clear todos
         setup_n_todos(0);
@@ -220,10 +204,10 @@ public class Tests {
         HashMap<String, Object> create_hash;
         for (int i=0; i<n; i++){
             create_hash = new HashMap<>();
-            create_hash.put("title", "create_n_title_" + i);
+            create_hash.put("title", generateRandomString(10));
             if (allFields){
                 create_hash.put("doneStatus", i % 2 == 0);
-                create_hash.put("description", "create_n_description_" + i);
+                create_hash.put("description", generateRandomString(10));
             }
             todoContents.add(create_hash);
         }
@@ -249,10 +233,10 @@ public class Tests {
         HashMap<String, Object> create_hash;
         for (int i=0; i<n; i++){
             create_hash = new HashMap<>();
-            create_hash.put("title", "put_update_n_title_" + i);
+            create_hash.put("title", generateRandomString(10));
             if (allFields){
                 create_hash.put("doneStatus", i % 2 == 0);
-                create_hash.put("description", "put_update_n_description_" + i);
+                create_hash.put("description", generateRandomString(10));
             }
             todoContents.put(strictly_ids.get(i), create_hash);
         }
@@ -270,10 +254,10 @@ public class Tests {
         HashMap<String, Object> create_hash;
         for (int i=0; i<n; i++){
             create_hash = new HashMap<>();
-            create_hash.put("title", "post_update_n_title_" + i);
+            create_hash.put("title", generateRandomString(10));
             if (allFields){
                 create_hash.put("doneStatus", i % 2 == 0);
-                create_hash.put("description", "post_update_n_description_" + i);
+                create_hash.put("description", generateRandomString(10));
             }
             todoContents.put(strictly_ids.get(i), create_hash);
         }
@@ -282,9 +266,6 @@ public class Tests {
         return update_n_todos_post(strictly_ids, todoContents);
     }
 
-
-    // TODO: aggregate tests
-    //      todo: data collection for dynamic analysis
 
     private static ArrayList<String[]> aggregateCreate(int start, int stop, boolean allFields, int sleepBetweenCases) throws InterruptedException {
         ArrayList<String[]> createResults = new ArrayList<>();
@@ -431,6 +412,16 @@ public class Tests {
         }
     }
 
+    private static String generateRandomString(int length){
+        String possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder rString = new StringBuilder();
+        Random r = new Random();
+        while (rString.length() < length){
+            int index = (int) (r.nextFloat() * possibleChars.length());
+            rString.append(possibleChars.charAt(index));
+        }
+        return rString.toString();
+    }
     private static void writeAggregateResultsToLog(String filename, ArrayList<Integer> pointsToTest, int sleepBetweenCases) throws InterruptedException {
         HashMap<String, ArrayList<String[]>> aggregateResults = performAllAggregatedTests(pointsToTest, sleepBetweenCases);
 

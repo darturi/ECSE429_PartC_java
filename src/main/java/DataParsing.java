@@ -499,40 +499,7 @@ public class DataParsing {
     }
 
     public static void main(String[] args) throws IOException {
-        // Instant start = Instant.now();
-        // Instant end = Instant.parse("0"); //Instant.now();
-        //Duration timeElapsed = Duration.between(start, end);
-        // System.out.println("Time taken: "+ start +" milliseconds");
-
-//        String base = "/Users/danielarturi/Desktop/McGill Fall 2024/ECSE 429/Project/PartC/ECSE429_PartC/";
-//
-//        String logFile = base + "log11.csv";
-//        String analysis = base + "raw_log_data4.csv";
-//        String timeElapsedFile = base + "results/timeElapsedResults.csv";
-//        String timePerTodoFile = base + "results/timePerTodoResults.csv";
-//        String avgCPUUsage = base + "results/average_cpu_usage";
-//        String avgBytesAvail = base + "results/average_bytes_available.csv";
-
-        //createTimeElapsedFile(logFile, timeElapsedFile);
-        //createTimePerTodo(logFile, timePerTodoFile);
-
-//        HashMap<String, List<String>> result = findCorrespondingChunks(logFile, analysis);
-//
-//        for (String key : result.keySet()){
-//            System.out.println(key);
-//            for (String v : result.get(key)){
-//                System.out.println("\t" + v);
-//            }
-//        }
-//
-//        System.out.println("\t-----------------");
-//
-//        processRelevantChunks(result);
-//
-//        writeResultsToFile(processRelevantChunks(result), avgBytesAvail, avgCPUUsage);
-
         createFinalFindingsFiles();
-
     }
 
 
