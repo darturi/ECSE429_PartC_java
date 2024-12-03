@@ -266,29 +266,10 @@ public class Tests {
         return update_n_todos_post(strictly_ids, todoContents);
     }
 
-
-    private static ArrayList<String[]> aggregateCreate(int start, int stop, boolean allFields, int sleepBetweenCases) throws InterruptedException {
-        ArrayList<String[]> createResults = new ArrayList<>();
-        for (int i=start; i<stop+1; i++) {
-            createResults.add(create_n_todos_test(i, allFields));
-            TimeUnit.SECONDS.sleep(sleepBetweenCases);
-        }
-        return createResults;
-    }
-
     private static ArrayList<String[]> aggregateCreate(ArrayList<Integer> pointsToTest, boolean allFields, int sleepBetweenCases) throws InterruptedException {
         ArrayList<String[]> createResults = new ArrayList<>();
         for (int i : pointsToTest) {
             createResults.add(create_n_todos_test(i, allFields));
-            TimeUnit.SECONDS.sleep(sleepBetweenCases);
-        }
-        return createResults;
-    }
-
-    private static ArrayList<String[]> aggregateDelete(int start, int stop, int sleepBetweenCases) throws InterruptedException {
-        ArrayList<String[]> createResults = new ArrayList<>();
-        for (int i = start; i < stop + 1; i++) {
-            createResults.add(delete_n_todos_test(i));
             TimeUnit.SECONDS.sleep(sleepBetweenCases);
         }
         return createResults;
@@ -303,28 +284,10 @@ public class Tests {
         return createResults;
     }
 
-    private static ArrayList<String[]> aggregateUpdate_put(int start, int stop, boolean allFields, int sleepBetweenCases) throws InterruptedException {
-        ArrayList<String[]> createResults = new ArrayList<>();
-        for (int i = start; i < stop + 1; i++) {
-            createResults.add(update_n_todos_put_test(i, allFields));
-            TimeUnit.SECONDS.sleep(sleepBetweenCases);
-        }
-        return createResults;
-    }
-
     private static ArrayList<String[]> aggregateUpdate_put(ArrayList<Integer> pointsToTest, boolean allFields, int sleepBetweenCases) throws InterruptedException {
         ArrayList<String[]> createResults = new ArrayList<>();
         for (int i : pointsToTest) {
             createResults.add(update_n_todos_put_test(i, allFields));
-            TimeUnit.SECONDS.sleep(sleepBetweenCases);
-        }
-        return createResults;
-    }
-
-    private static ArrayList<String[]> aggregateUpdate_post(int start, int stop, boolean allFields, int sleepBetweenCases) throws InterruptedException {
-        ArrayList<String[]> createResults = new ArrayList<>();
-        for (int i = start; i < stop + 1; i++) {
-            createResults.add(update_n_todos_post_test(i, allFields));
             TimeUnit.SECONDS.sleep(sleepBetweenCases);
         }
         return createResults;
@@ -337,26 +300,6 @@ public class Tests {
             TimeUnit.SECONDS.sleep(sleepBetweenCases);
         }
         return createResults;
-    }
-
-    private static HashMap<String, ArrayList<String[]>> performAllAggregatedTests(int start, int stop, int sleepBetweenCases) throws InterruptedException {
-        HashMap<String, ArrayList<String[]>> allResults = new HashMap<>();
-        // Create with only title
-        allResults.put("Create_OnlyTitle", aggregateCreate(start, stop, false, sleepBetweenCases));
-        // Create with all fields
-        allResults.put("Create_AllFields", aggregateCreate(start, stop, true, sleepBetweenCases));
-        // Delete
-        allResults.put("Delete", aggregateDelete(start, stop, sleepBetweenCases));
-        // Update, put, title only
-        allResults.put("Update_Put_TitleOnly", aggregateUpdate_put(start, stop, true, sleepBetweenCases));
-        // Update, put, all fields
-        allResults.put("Update_Put_AllFields", aggregateUpdate_put(start, stop, true, sleepBetweenCases));
-        // Update, post, title only
-        allResults.put("Update_Post_TitleOnly", aggregateUpdate_post(start, stop, true, sleepBetweenCases));
-        // Update, post, all fields
-        allResults.put("Update_Post_AllFields", aggregateUpdate_post(start, stop, true, sleepBetweenCases));
-
-        return allResults;
     }
 
     private static HashMap<String, ArrayList<String[]>> performAllAggregatedTests(ArrayList<Integer> pointsToTest, int sleepBetweenCases) throws InterruptedException {
@@ -378,40 +321,6 @@ public class Tests {
 
         return allResults;
     }
-
-    private static void writeAggregateResultsToLog(String filename, int start, int stop, int sleepBetweenCases) throws InterruptedException {
-        HashMap<String, ArrayList<String[]>> aggregateResults = performAllAggregatedTests(start, stop, sleepBetweenCases);
-
-        int counter = 0;
-        File file = new File(filename + counter + ".csv");
-        boolean fileExists = file.exists();
-        while (fileExists){
-            counter++;
-            file = new File(filename + counter + ".csv");
-            fileExists = file.exists();
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename + counter + ".csv", true))) {
-            if (!fileExists) {
-                // If file does not exist, create it with headers
-                writer.write("Label,TodoCount,StartTime,EndTime,TimeElapsed");
-                writer.newLine();
-            }
-
-            for (String label : aggregateResults.keySet()){
-                ArrayList<String[]> currTimeBlock = aggregateResults.get(label);
-                for (int i=start; i<stop; i++){
-                    String entry = String.format("%s,%d,%s,%s,%s",
-                            label, i, currTimeBlock.get(i)[0], currTimeBlock.get(i)[1], "PLACEHOLDER");
-                    writer.write(entry);
-                    writer.newLine();
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("An error occurred while handling the CSV file: " + e.getMessage());
-        }
-    }
-
     private static String generateRandomString(int length){
         String possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         StringBuilder rString = new StringBuilder();
