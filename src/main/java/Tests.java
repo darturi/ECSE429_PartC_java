@@ -21,13 +21,6 @@ public class Tests {
     static HashMap<String, HashMap<String, Object>> id_list = new HashMap<>();
     static ArrayList<String> strictly_ids = new ArrayList<>();
 
-    // HELPER METHODS
-
-    private static int getTodoCount(){
-        return when().get("/todos")
-                .then().statusCode(200).extract().body().jsonPath().getList("todos").size();
-    }
-
     // TEST BUILDING BLOCKS
 
     // Create One To-do
@@ -194,8 +187,6 @@ public class Tests {
 
         return new String[]{formattedStartTime, formattedEndTime};
     }
-
-
     private static String[] create_n_todos_test(int n, boolean allFields){
         // Clear todos
         setup_n_todos(0);
@@ -215,7 +206,6 @@ public class Tests {
         // Return time taken to create all n todos
         return create_n_todos(todoContents);
     }
-
     private static String[] delete_n_todos_test(int n){
         // Create n todos
         setup_n_todos(n);
@@ -223,7 +213,6 @@ public class Tests {
         // Return time taken to delete all n todos
         return delete_n_todos(strictly_ids);
     }
-
     private static String[] update_n_todos_put_test(int n, boolean allFields){
         // Create n todos
         setup_n_todos(n);
@@ -244,7 +233,6 @@ public class Tests {
         // Return time taken to update all n todos with put
         return update_n_todos_put(strictly_ids, todoContents);
     }
-
     private static String[] update_n_todos_post_test(int n, boolean allFields){
         // Create n todos
         setup_n_todos(n);
@@ -265,8 +253,8 @@ public class Tests {
         // Return time taken to update all n todos with post
         return update_n_todos_post(strictly_ids, todoContents);
     }
-
     private static ArrayList<String[]> aggregateCreate(ArrayList<Integer> pointsToTest, boolean allFields, int sleepBetweenCases) throws InterruptedException {
+        TimeUnit.SECONDS.sleep(sleepBetweenCases);
         ArrayList<String[]> createResults = new ArrayList<>();
         for (int i : pointsToTest) {
             createResults.add(create_n_todos_test(i, allFields));
@@ -274,8 +262,8 @@ public class Tests {
         }
         return createResults;
     }
-
     private static ArrayList<String[]> aggregateDelete(ArrayList<Integer> pointsToTest, int sleepBetweenCases) throws InterruptedException {
+        TimeUnit.SECONDS.sleep(sleepBetweenCases);
         ArrayList<String[]> createResults = new ArrayList<>();
         for (int i : pointsToTest) {
             createResults.add(delete_n_todos_test(i));
@@ -283,8 +271,8 @@ public class Tests {
         }
         return createResults;
     }
-
     private static ArrayList<String[]> aggregateUpdate_put(ArrayList<Integer> pointsToTest, boolean allFields, int sleepBetweenCases) throws InterruptedException {
+        TimeUnit.SECONDS.sleep(sleepBetweenCases);
         ArrayList<String[]> createResults = new ArrayList<>();
         for (int i : pointsToTest) {
             createResults.add(update_n_todos_put_test(i, allFields));
@@ -292,16 +280,15 @@ public class Tests {
         }
         return createResults;
     }
-
     private static ArrayList<String[]> aggregateUpdate_post(ArrayList<Integer> pointsToTest, boolean allFields, int sleepBetweenCases) throws InterruptedException {
         ArrayList<String[]> createResults = new ArrayList<>();
+        TimeUnit.SECONDS.sleep(sleepBetweenCases);
         for (int i : pointsToTest) {
             createResults.add(update_n_todos_post_test(i, allFields));
             TimeUnit.SECONDS.sleep(sleepBetweenCases);
         }
         return createResults;
     }
-
     private static HashMap<String, ArrayList<String[]>> performAllAggregatedTests(ArrayList<Integer> pointsToTest, int sleepBetweenCases) throws InterruptedException {
         HashMap<String, ArrayList<String[]>> allResults = new HashMap<>();
         // Create with only title
@@ -311,11 +298,11 @@ public class Tests {
         // Delete
         allResults.put("Delete", aggregateDelete(pointsToTest, sleepBetweenCases));
         // Update, put, title only
-        allResults.put("Update_Put_TitleOnly", aggregateUpdate_put(pointsToTest, true, sleepBetweenCases));
+        allResults.put("Update_Put_TitleOnly", aggregateUpdate_put(pointsToTest, false, sleepBetweenCases));
         // Update, put, all fields
         allResults.put("Update_Put_AllFields", aggregateUpdate_put(pointsToTest, true, sleepBetweenCases));
         // Update, post, title only
-        allResults.put("Update_Post_TitleOnly", aggregateUpdate_post(pointsToTest, true, sleepBetweenCases));
+        allResults.put("Update_Post_TitleOnly", aggregateUpdate_post(pointsToTest, false, sleepBetweenCases));
         // Update, post, all fields
         allResults.put("Update_Post_AllFields", aggregateUpdate_post(pointsToTest, true, sleepBetweenCases));
 
@@ -363,7 +350,6 @@ public class Tests {
             System.err.println("An error occurred while handling the CSV file: " + e.getMessage());
         }
     }
-
     public static void main(String[] args) throws InterruptedException {
         ArrayList<Integer> pointsToTest = new ArrayList<>();
         pointsToTest.add(1);
@@ -375,7 +361,7 @@ public class Tests {
         pointsToTest.add(200);
 
         int timeBetweenCases = 3;
-        String filename = "/Users/danielarturi/Desktop/McGill Fall 2024/ECSE 429/Project/PartC/ECSE429_PartC/log1";
+        String filename = "/Users/danielarturi/Desktop/McGill Fall 2024/ECSE 429/Project/PartC/ECSE429_PartC/intermediate_findings/run_log/log1";
 
         RestAssured.baseURI = "http://localhost:4567";
 

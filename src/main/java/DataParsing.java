@@ -225,10 +225,10 @@ public class DataParsing {
         String base = "/Users/danielarturi/Desktop/McGill Fall 2024/ECSE 429/Project/PartC/ECSE429_PartC/";
 
         String dynamicAnalysisBase = base + "intermediate_findings/dynamicAnalysisLog/";
-        String[] dynamicAnalysisFileNames = new String[]{"raw_log_data4.csv", "raw_log_data5.csv", "raw_log_data6.csv",
-                "raw_log_data7.csv", "raw_log_data8.csv"};
+        String[] dynamicAnalysisFileNames = new String[]{"raw_log_data9.csv", "raw_log_data10.csv", "raw_log_data11.csv",
+                "raw_log_data12.csv", "raw_log_data13.csv"};
         String runLogBase = base + "intermediate_findings/run_log/";
-        String[] runLogFileNames = new String[]{"log11.csv", "log12.csv", "log14.csv", "log15.csv", "log16.csv"};
+        String[] runLogFileNames = new String[]{"log17.csv", "log18.csv", "log110.csv", "log111.csv", "log112.csv"};
 
         String timeElapsed = base + "intermediate_findings/intermediate_time_elapsed/timeElapsed_";
         String timePerTodo = base + "intermediate_findings/intermediate_time_per_todo/time_per_todo_";
@@ -499,6 +499,7 @@ public class DataParsing {
     }
 
     public static void main(String[] args) throws IOException {
+        populateIntermediateResults();
         createFinalFindingsFiles();
     }
 

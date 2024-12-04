@@ -1,8 +1,8 @@
 Label,Average_CPU_Usage_1,Average_CPU_Usage_5,Average_CPU_Usage_10,Average_CPU_Usage_25,Average_CPU_Usage_50,Average_CPU_Usage_100,Average_CPU_Usage_200
-Delete,6.65,7.14,7.62,8.69,6.66,14.335,21.53
-Update_Put_TitleOnly,6.63,9.7,6.57,14.67,9.78,10.945,21.4
-Update_Put_AllFields,7.12,9.42,7.24,7.73,13.059999999999999,6.45,19.1
-Update_Post_TitleOnly,6.68,6.4,6.51,7.91,7.59,7.8,18.38
-Create_OnlyTitle,35.325,11.2,11.1,11.7,13.175,14.875,17.98
-Update_Post_AllFields,7.25,9.0,7.29,6.77,6.54,8.62,8.75
-Create_AllFields,6.55,6.26,6.56,9.94,8.75,11.27,15.23
+Delete,12.88,11.65,12.18,15.63,13.59,11.89,27.76
+Update_Put_TitleOnly,12.61,12.57,11.33,14.77,15.88,18.53,19.36
+Update_Put_AllFields,10.38,10.12,10.36,9.98,13.64,13.2,19.65
+Update_Post_TitleOnly,10.2,10.44,19.21,21.32,23.23,14.94,12.4
+Create_OnlyTitle,15.010000000000002,12.77,10.91,14.745,15.55,21.7,20.92
+Update_Post_AllFields,10.17,12.76,10.6,10.55,10.28,17.64,18.23
+Create_AllFields,11.82,13.57,12.29,10.83,13.875,14.925,20.64
